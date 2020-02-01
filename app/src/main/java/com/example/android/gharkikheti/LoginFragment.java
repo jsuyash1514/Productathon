@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class LoginFragment extends Fragment {
         memail = view.findViewById(R.id.email_id);
         mpassword = view.findViewById(R.id.password);
         fAuth = FirebaseAuth.getInstance();
+        navController= Navigation.findNavController(getActivity(),R.id.my_nav_host_fragment);
         mlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +80,7 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful()) {
                             progressDialog.dismiss();
                             Toast.makeText(getContext(), "login successful", Toast.LENGTH_SHORT).show();
+                            navController.navigate(R.id.action_loginFragment_to_feedFragment);
                         } else {
                             progressDialog.dismiss();
                             Toast.makeText(getContext(), "Login unsuccessful", Toast.LENGTH_SHORT).show();

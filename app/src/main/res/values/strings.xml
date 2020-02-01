@@ -1,10 +1,10 @@
 <resources>
-  <string name="app_name">GharKiKheti</string>
+    <string name="app_name">GharKiKheti</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="password">Password</string>
-  <string name="login">LOGIN</string>
-  <string name="not_having_account_sign_up">Not having account? Sign Up</string>
-  <string name="email_id">Email Id</string>
-  <string name="hello_blank_fragment">hello_blank_fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="not_having_account_sign_up">Not having account? Sign Up</string>
+    <string name="email_id">Email Id</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
 </resources>
