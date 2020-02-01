@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "80115761784",
+    "firebase_url": "https://gharkikheti-5f2df.firebaseio.com",
+    "project_id": "gharkikheti-5f2df",
+    "storage_bucket": "gharkikheti-5f2df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80115761784:android:2dd254ddec467a1034638d",
+        "android_client_info": {
+          "package_name": "com.example.android.gharkikheti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80115761784-ok8dus8bii41nk1gn5d1ooc3kqqsr0j1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.gharkikheti",
+            "certificate_hash": "351467a24d0e4d1a8ce2669ee48a9d1ac0ae1860"
+          }
+        },
+        {
+          "client_id": "80115761784-fpgcgpmfg4b1npq5janbc51cs8ergh3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXBibbvxwq0earcHogwzawz98yKDgpAao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80115761784-fpgcgpmfg4b1npq5janbc51cs8ergh3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
