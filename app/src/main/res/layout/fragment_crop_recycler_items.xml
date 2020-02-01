@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent_layout_crop"
+    >
+    <ImageView
+        android:id="@+id/crop_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/dp"
+      />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/crop_image"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        >
+    <TextView
+        android:id="@+id/Crop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CropName"
+        />
+    <TextView
+        android:id="@+id/start_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/crop_image"
+        android:text="Start Date"
+        />
+    <TextView
+        android:id="@+id/end_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/crop_image"
+        android:text="EndDate"
+        />
+    </LinearLayout>
+</RelativeLayout>
