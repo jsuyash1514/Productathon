@@ -7,4 +7,7 @@
     <string name="not_having_account_sign_up">Not having account? Sign Up</string>
     <string name="email_id">Email Id</string>
     <string name="hello_blank_fragment">hello_blank_fragment</string>
+    <string name="fullname">FullName</string>
+    <string name="register">REGISTER</string>
+    <string name="mobile_number">mobile number</string>
 </resources>
