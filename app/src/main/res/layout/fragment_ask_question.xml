@@ -9,6 +9,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/question_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/askQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rnd_bttn"
+        android:padding="12dp"
+        android:text="ASK QUESTION"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
