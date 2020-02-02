@@ -63,4 +63,9 @@
         android:name="com.example.android.gharkikheti.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.example.android.gharkikheti.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
