@@ -16,6 +16,7 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -30,5 +31,17 @@
         android:id="@+id/feedFragment"
         android:name="com.example.android.gharkikheti.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed"
+        >
+        <action
+            android:id="@+id/action_feedFragment_to_newFeedFragment"
+            app:destination="@+id/newFeedFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/newFeedFragment"
+        android:name="com.example.android.gharkikheti.NewFeedFragment"
+        android:label="fragment_new_feed"
+        tools:layout="@layout/fragment_new_feed" />
+
 </navigation>
