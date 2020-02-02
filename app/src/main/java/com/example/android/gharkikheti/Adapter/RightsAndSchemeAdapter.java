@@ -1,4 +1,4 @@
-package com.example.android.gharkikheti;
+package com.example.android.gharkikheti.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,9 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.android.gharkikheti.Modal.RightsAndSchemeModel;
+import com.example.android.gharkikheti.R;
 
 public class RightsAndSchemeAdapter extends RecyclerView.Adapter<RightsAndSchemeAdapter.RightsAnsSchemeViewHolder>{
 

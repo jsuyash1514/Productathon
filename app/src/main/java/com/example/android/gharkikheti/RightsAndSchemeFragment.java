@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.gharkikheti.Adapter.RightsAndSchemeAdapter;
+import com.example.android.gharkikheti.Modal.RightsAndSchemeModel;
+
 
 public class RightsAndSchemeFragment extends Fragment {
     RecyclerView recyclerView;

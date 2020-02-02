@@ -36,17 +36,32 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/questionFragment"
-        android:name="com.example.android.gharkikheti.QuestionFragment"
-        android:label="fragment_question"
-        tools:layout="@layout/fragment_question" >
-        <action
-            android:id="@+id/action_questionFragment_to_answerFragment"
-            app:destination="@id/answerFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/answerFragment"
         android:name="com.example.android.gharkikheti.AnswerFragment"
         android:label="fragment_answer"
         tools:layout="@layout/fragment_answer" />
+    <fragment
+        android:id="@+id/askQuestionFragment"
+        android:name="com.example.android.gharkikheti.AskQuestionFragment"
+        android:label="fragment_ask_question"
+        tools:layout="@layout/fragment_ask_question" >
+        <action
+            android:id="@+id/action_askQuestionFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rightsAndSchemeFragment"
+        android:name="com.example.android.gharkikheti.RightsAndSchemeFragment"
+        android:label="fragment_rights_and_scheme"
+        tools:layout="@layout/fragment_rights_and_scheme" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.android.gharkikheti.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.android.gharkikheti.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
 </navigation>

@@ -39,7 +39,7 @@ public class QuestionAdapater extends RecyclerView.Adapter<QuestionAdapater.Ques
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     class QuestionViewHolder extends RecyclerView.ViewHolder{

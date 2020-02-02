@@ -1,4 +1,4 @@
-package com.example.android.gharkikheti;
+package com.example.android.gharkikheti.Modal;
 
 import android.graphics.drawable.Drawable;
 
