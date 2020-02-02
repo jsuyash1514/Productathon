@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,8 +25,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -88,6 +94,9 @@ private ArrayList<String> mcropnames=new ArrayList<>();
     private DatabaseReference mDatabaseRef;
     private StorageReference mStorageRef;
     private StorageTask mUploadTask;
+    private ProfileFragmentRecyclerAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private List<upload_need> mUploads;
     private static final int PICK_IMAGE_REQUEST = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,8 +108,8 @@ private ArrayList<String> mcropnames=new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
@@ -128,6 +137,25 @@ private ArrayList<String> mcropnames=new ArrayList<>();
                 uploadFile();
             }
         });
+       mRecyclerView=view.findViewById(R.id.profile_crops_view_recycler);
+       mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+       mUploads=new ArrayList<>();
+       mDatabaseRef.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                   upload_need upload = postSnapshot.getValue(upload_need.class);
+                   mUploads.add(upload);
+               }
+     mAdapter=new ProfileFragmentRecyclerAdapter(getActivity(),mUploads);
+               mRecyclerView.setAdapter(mAdapter);
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -163,7 +191,7 @@ private ArrayList<String> mcropnames=new ArrayList<>();
                                 }
                             }, 500);
 
-                            upload_need.Upload upload = new upload_need.Upload(mcrop_name_text.getText().toString().trim(),
+                            upload_need upload = new upload_need(mcrop_name_text.getText().toString().trim(),
                                     mstart_date_text.getText().toString().trim(),mend_date_text.getText().toString().trim(),
                                     taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
                             String uploadId = mDatabaseRef.push().getKey();
@@ -176,16 +204,8 @@ private ArrayList<String> mcropnames=new ArrayList<>();
 
                         }
                     })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                        }
-                    });
-            mcrop_name_text.setText(null);
-            mstart_date_text.setText(null);
-            mend_date_text.setText(null);
-            mImageView.setImageBitmap(null);
+                  ;
+
         } else {
 
         }

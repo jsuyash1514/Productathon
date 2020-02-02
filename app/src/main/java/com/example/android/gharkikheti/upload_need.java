@@ -1,12 +1,11 @@
 package com.example.android.gharkikheti;
 
 public class upload_need {
-    public static class Upload {
         private String mName;
         private String mstartdate;
         private String menddate;
         private String mImageUrl;
-        public Upload(String mName, String mstartdate, String menddate,String mImageUrl) {
+        public upload_need(String mName, String mstartdate, String menddate,String mImageUrl) {
             this.mName = mName;
             this.mstartdate = mstartdate;
             this.menddate = menddate;
@@ -21,7 +20,7 @@ public class upload_need {
             this.mImageUrl = mImageUrl;
         }
 
-        public Upload() {
+        public upload_need() {
             //empty constructor needed
         }
 
@@ -48,5 +47,5 @@ public class upload_need {
         public void setMenddate(String menddate) {
             this.menddate = menddate;
         }
-    }
+
 }

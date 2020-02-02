@@ -7,27 +7,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.example.android.gharkikheti.upload_need;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragmentRecyclerAdapter extends  RecyclerView.Adapter<ProfileFragmentRecyclerAdapter.ViewHolder>{
-    private ArrayList<String> mcrop_image=new ArrayList<>();
-    private ArrayList<String> mcrop_name=new ArrayList<>();
-    private ArrayList<String> mstart_date=new ArrayList<>();
-    private ArrayList<String> mend_date=new ArrayList<>();
-    private Context context;
 
-    public ProfileFragmentRecyclerAdapter(Context context,ArrayList<String> mcrop_image, ArrayList<String> mcrop_name, ArrayList<String> mstart_date, ArrayList<String> mend_date) {
-        this.mcrop_image = mcrop_image;
-        this.mcrop_name = mcrop_name;
-        this.mstart_date = mstart_date;
-        this.mend_date = mend_date;
-        this.context = context;
+    private Context context;
+    private List<upload_need> muploads;
+    public ProfileFragmentRecyclerAdapter(Context context,List<upload_need> muploads){
+        this.context=context;
+        this.muploads=muploads;
     }
 
     @NonNull
@@ -40,18 +36,21 @@ public class ProfileFragmentRecyclerAdapter extends  RecyclerView.Adapter<Profil
 
     @Override
     public void onBindViewHolder(@NonNull ProfileFragmentRecyclerAdapter.ViewHolder holder, int position) {
-        Glide.with(context)
-                .asBitmap()
-                .load(mcrop_image.get(position))
-                .into(holder.crop_image);
-        holder.Crop_name.setText(mcrop_name.get(position));
-        holder.end_date.setText(mend_date.get(position));
-        holder.start_date.setText(mstart_date.get(position));
+        upload_need uploadCurrent=new upload_need();
+ uploadCurrent=muploads.get(position);
+      holder.Crop_name.setText(uploadCurrent.getmName());
+      holder.start_date.setText(uploadCurrent.getMstartdate());
+      holder.end_date.setText(uploadCurrent.getMenddate());
+      Picasso.get()
+              .load(uploadCurrent.getmImageUrl())
+              .fit()
+              .centerCrop()
+              .into(holder.crop_image);
     }
 
     @Override
     public int getItemCount() {
-        return mcrop_image.size();
+        return muploads.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
