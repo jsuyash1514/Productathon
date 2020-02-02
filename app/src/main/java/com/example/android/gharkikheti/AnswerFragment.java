@@ -21,9 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.gharkikheti.Adapter.AnswerAdapter;
-import com.example.android.gharkikheti.Adapter.QuestionAdapater;
 import com.example.android.gharkikheti.Modal.AnswerModel;
-import com.example.android.gharkikheti.Modal.QuestionModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,18 +61,18 @@ public class AnswerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_answer, container, false);
 
-        button=view.findViewById(R.id.askAnswer);
-        firebaseAuth=FirebaseAuth.getInstance();
+        button = view.findViewById(R.id.askAnswer);
+        firebaseAuth = FirebaseAuth.getInstance();
         questionContent = view.findViewById(R.id.answer_question_content);
         questionPostedBy = view.findViewById(R.id.answer_question_postedBy);
         questionTimestamp = view.findViewById(R.id.answer_question_timestamp);
         recyclerView = view.findViewById(R.id.answer_recyclerView);
-        reference= FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         questionContent.setText(getArguments().getString("questionDetailsContent"));
         questionPostedBy.setText(getArguments().getString("questionDetailsName"));
         timestamp = getArguments().getString("questionDetailsTimestamp");
-        String req = "" + timestamp.charAt(6) + timestamp.charAt(7) + "/" + timestamp.charAt(4) + timestamp.charAt(5) + "/" + timestamp.charAt(0) + timestamp.charAt(1) + timestamp.charAt(2) + timestamp.charAt(3)+  ", "  + timestamp.charAt(8) + timestamp.charAt(9) + ":" + timestamp.charAt(10) + timestamp.charAt(11);
+        String req = "" + timestamp.charAt(6) + timestamp.charAt(7) + "/" + timestamp.charAt(4) + timestamp.charAt(5) + "/" + timestamp.charAt(0) + timestamp.charAt(1) + timestamp.charAt(2) + timestamp.charAt(3) + ", " + timestamp.charAt(8) + timestamp.charAt(9) + ":" + timestamp.charAt(10) + timestamp.charAt(11);
         questionTimestamp.setText(req);
 
         progressDialog = new ProgressDialog(getContext());
@@ -90,36 +88,37 @@ public class AnswerFragment extends Fragment {
                 if (dataSnapshot != null) {
                     final List<AnswerModel> list = new ArrayList<>();
                     adapter = new AnswerAdapter(list);
-                    for (final DataSnapshot readdata : dataSnapshot.child(timestamp).getChildren()) {
-                        Log.d("timestamp",readdata.getValue().toString());
-                        if (readdata != null) {
-                            String uid = readdata.child("uid").getValue().toString();
-                            DatabaseReference databaseReference = reference.child(uid).child("profile").child("name");
-                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String name = dataSnapshot.getValue().toString();
-                                    String timestamp = readdata.getKey();
-                                    String ts = "" + timestamp.charAt(6) + timestamp.charAt(7) + "/" + timestamp.charAt(4) + timestamp.charAt(5) + "/" + timestamp.charAt(0) + timestamp.charAt(1) + timestamp.charAt(2) + timestamp.charAt(3)+  ", "  + timestamp.charAt(8) + timestamp.charAt(9) + ":" + timestamp.charAt(10) + timestamp.charAt(11);
-                                    Log.d("timecheck", timestamp);
-                                    list.add(new AnswerModel(name,ts,readdata.child("answer").getValue(String.class)));
-                                    adapter.notifyDataSetChanged();
-                                   progressDialog.dismiss();
-                                }
+                    if (dataSnapshot.child(timestamp).hasChildren()) {
+                        for (final DataSnapshot readdata : dataSnapshot.child(timestamp).getChildren()) {
+                            Log.d("timestamp", readdata.getValue().toString());
+                            if (readdata != null) {
+                                String uid = readdata.child("uid").getValue().toString();
+                                DatabaseReference databaseReference = reference.child(uid).child("profile").child("name");
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        String name = dataSnapshot.getValue().toString();
+                                        String timestamp = readdata.getKey();
+                                        String ts = "" + timestamp.charAt(6) + timestamp.charAt(7) + "/" + timestamp.charAt(4) + timestamp.charAt(5) + "/" + timestamp.charAt(0) + timestamp.charAt(1) + timestamp.charAt(2) + timestamp.charAt(3) + ", " + timestamp.charAt(8) + timestamp.charAt(9) + ":" + timestamp.charAt(10) + timestamp.charAt(11);
+                                        Log.d("timecheck", timestamp);
+                                        list.add(new AnswerModel(name, ts, readdata.child("answer").getValue(String.class)));
+                                        adapter.notifyDataSetChanged();
+                                        progressDialog.dismiss();
+                                    }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                   progressDialog.dismiss();
-                                }
-                            });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        progressDialog.dismiss();
+                                    }
+                                });
+                            } else progressDialog.dismiss();
                         }
-                        else progressDialog.dismiss();
                     }
+                    else progressDialog.dismiss();
                     RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(adapter);
-                }
-                else progressDialog.dismiss();
+                } else progressDialog.dismiss();
             }
         });
 
