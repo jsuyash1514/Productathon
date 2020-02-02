@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
+            app:destination="@id/landingFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -24,15 +24,15 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
+            app:destination="@id/landingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/feedFragment"
-        android:name="com.example.android.gharkikheti.FeedFragment"
-        android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
+        android:id="@+id/landingFragment"
+        android:name="com.example.android.gharkikheti.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" >
         <action
-            android:id="@+id/action_feedFragment_to_loginFragment"
+            android:id="@+id/action_landingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 </navigation>
