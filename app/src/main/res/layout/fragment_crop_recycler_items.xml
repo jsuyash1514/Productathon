@@ -17,25 +17,37 @@
         android:orientation="vertical"
         android:layout_centerVertical="true"
         >
-    <TextView
-        android:id="@+id/Crop_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CropName"
-        />
-    <TextView
-        android:id="@+id/start_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/crop_image"
-        android:text="Start Date"
-        />
-    <TextView
-        android:id="@+id/end_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/crop_image"
-        android:text="EndDate"
-        />
+
+        <TextView
+            android:id="@+id/Crop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bungee_inline"
+            android:text="CropName" />
+
+        <TextView
+            android:id="@+id/start_date"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_toRightOf="@+id/crop_image"
+            android:fontFamily="casual"
+            android:foregroundGravity="center_vertical|center"
+            android:text="Start Date"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/end_date"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/crop_image"
+            android:fontFamily="casual"
+            android:text="EndDate"
+            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>

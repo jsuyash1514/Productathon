@@ -1,5 +1,6 @@
 package com.example.android.gharkikheti;
 
+import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -80,16 +84,19 @@ public class ProfileFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+     private int t=0,u=0;
 private ArrayList<String> mcropnames=new ArrayList<>();
     private ArrayList<String> mstartdate=new ArrayList<>();
     private ArrayList<String> menddate=new ArrayList<>();
     private ArrayList<String> mImageurls=new ArrayList<>();
     EditText mcrop_name_text;
-    EditText mstart_date_text;
-    EditText mend_date_text;
+    private String mYear, mMonth, mDay, mHour, mMinute;
+    EditText mstart_date_text,txtdates;
+    EditText mend_date_text,txtdatee;
     ProgressBar mProgressBar;
     Button mupload,mchoose;
     ImageView mImageView;
+    String imageUrl;
     private Uri mImageUri;
     private DatabaseReference mDatabaseRef;
     private StorageReference mStorageRef;
@@ -116,6 +123,10 @@ private ArrayList<String> mcropnames=new ArrayList<>();
         super.onViewCreated(view, savedInstanceState);
         mcrop_name_text=view.findViewById(R.id.Crop_name_text);
         mstart_date_text=view.findViewById(R.id.start_date_text);
+        txtdates=view.findViewById(R.id.start_date_text);
+        txtdatee=view.findViewById(R.id.end_date_text);
+        mstart_date_text=view.findViewById(R.id.start_date_text);
+        mstart_date_text=view.findViewById(R.id.start_date_text);
         mend_date_text=view.findViewById(R.id.end_date_text);
         mupload=view.findViewById(R.id.upload_crop_details);
         mchoose=view.findViewById(R.id.choose_crop_details);
@@ -129,8 +140,24 @@ private ArrayList<String> mcropnames=new ArrayList<>();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent,PICK_IMAGE_REQUEST);
+                t=0;u=0;
+                txtdatee.setText(null);
+                txtdates.setText(null);
             }
         });
+        if(t==0) {t++;
+            mstart_date_text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Calendar c = Calendar.getInstance();
+                    mYear = Integer.toString(c.get(Calendar.YEAR));
+                    mMonth = Integer.toString(c.get(Calendar.MONTH));
+                    mDay = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+                    txtdates.setText((mDay) + "-" + (mMonth + 1) + "-" + (mYear));
+
+                }
+            });
+        }
         mupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +176,7 @@ private ArrayList<String> mcropnames=new ArrayList<>();
                }
      mAdapter=new ProfileFragmentRecyclerAdapter(getActivity(),mUploads);
                mRecyclerView.setAdapter(mAdapter);
+
            }
 
            @Override
@@ -190,13 +218,25 @@ private ArrayList<String> mcropnames=new ArrayList<>();
 
                                 }
                             }, 500);
+                            if(taskSnapshot.getMetadata()!=null){
 
+                                Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                         imageUrl = uri.toString();
+                                        //createNewPost(imageUrl);
+
+                                    }
+                                });
                             upload_need upload = new upload_need(mcrop_name_text.getText().toString().trim(),
                                     mstart_date_text.getText().toString().trim(),mend_date_text.getText().toString().trim(),
-                                    taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                                    imageUrl
+                            );
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
-                        }
+
+                        }}
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override

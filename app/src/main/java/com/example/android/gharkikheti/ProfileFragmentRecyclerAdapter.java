@@ -41,11 +41,11 @@ public class ProfileFragmentRecyclerAdapter extends  RecyclerView.Adapter<Profil
       holder.Crop_name.setText(uploadCurrent.getmName());
       holder.start_date.setText(uploadCurrent.getMstartdate());
       holder.end_date.setText(uploadCurrent.getMenddate());
-      Picasso.get()
+      Glide.with(context.getApplicationContext())
               .load(uploadCurrent.getmImageUrl())
-              .fit()
-              .centerCrop()
-              .into(holder.crop_image);
+              .into(holder.crop_image)
+      ;
+
     }
 
     @Override
