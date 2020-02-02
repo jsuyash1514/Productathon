@@ -88,8 +88,7 @@ public class AskQuestionFragment extends Fragment {
                                     String name = dataSnapshot.getValue().toString();
                                     String timestamp = readdata.getKey();
                                     Log.d("timecheck", timestamp);
-                                    String req = "" + timestamp.charAt(6) + timestamp.charAt(7) + "/" + timestamp.charAt(4) + timestamp.charAt(5) + "/" + timestamp.charAt(0) + timestamp.charAt(1) + timestamp.charAt(2) + timestamp.charAt(3)+  ", "  + timestamp.charAt(8) + timestamp.charAt(9) + ":" + timestamp.charAt(10) + timestamp.charAt(11);
-                                    list.add(new QuestionModel(readdata.child("question").getValue(String.class), name, req));
+                                    list.add(new QuestionModel(readdata.child("question").getValue(String.class), name, timestamp));
                                     adapter.notifyDataSetChanged();
                                     progressDialog.dismiss();
                                 }
@@ -100,11 +99,13 @@ public class AskQuestionFragment extends Fragment {
                                 }
                             });
                         }
+                        else progressDialog.dismiss();
                     }
                     RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(adapter);
                 }
+                else progressDialog.dismiss();
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +121,7 @@ public class AskQuestionFragment extends Fragment {
                         .setPositiveButton("ASK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMddHHmmss");
+                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                         timestamp = simpleDateFormat.format(new Date());
                                         reference.child("questions").child(timestamp).child("uid").setValue(firebaseAuth.getCurrentUser().getUid());
                                         reference.child("questions").child(timestamp).child("question").setValue(edittext.getText().toString());
