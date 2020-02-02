@@ -9,17 +9,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
 
 
 public class NewFeedFragment extends Fragment {
@@ -33,6 +42,8 @@ public class NewFeedFragment extends Fragment {
     private EditText description;
     private StorageReference storageReference;
     private FirebaseDatabase db;
+    private DatabaseReference dref;
+    ProgressBar progressBar;
 
 
     public NewFeedFragment() {
@@ -53,6 +64,7 @@ public class NewFeedFragment extends Fragment {
          chooseBn = view.findViewById(R.id.choose_bn);
          uploadBn = view.findViewById(R.id.upload_bn);
          description = view.findViewById(R.id.video_description);
+         progressBar = view.findViewById(R.id.progressBar);
 
          db = FirebaseDatabase.getInstance();
          storageReference = FirebaseStorage.getInstance().getReference();
@@ -67,7 +79,7 @@ public class NewFeedFragment extends Fragment {
          uploadBn.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                // uploadFile;
+                 uploadFile();
              }
          });
 
@@ -88,9 +100,38 @@ public class NewFeedFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_VIDEO_REQUEST && resultCode != RESULT_CANCELED && data != null && data.getData() != null) {
             //filePath = data.getData();
-            Uri video = data.getData();
-            videoView.setVideoURI(video);
+            filePath = data.getData();
+            videoView.setVideoURI(filePath);
             videoView.start();
+        }
+    }
+
+    private void uploadFile(){
+        final String video_description = description.getText().toString().trim();
+        if (filePath == null){
+            Toast.makeText(getActivity(), "Video is mandatory", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(video_description)) {
+            Toast.makeText(getActivity(), "Enter some description!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            progressBar.setVisibility(View.VISIBLE);
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+            final StorageReference myRef;
+            final String videoID = UUID.randomUUID().toString();
+            myRef = storageReference.child("feedVideos/" + videoID);
+            String videoUrl = myRef.getDownloadUrl().toString();
+
+            myRef.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                        }
+
+                    });
         }
     }
 
