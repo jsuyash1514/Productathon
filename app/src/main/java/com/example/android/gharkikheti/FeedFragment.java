@@ -57,12 +57,6 @@ public class FeedFragment extends Fragment {
         floatingActionButton = view.findViewById(R.id.fab);
         navController = Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_feedFragment_to_newFeedFragment);
-            }
-        });
     }
 
 
