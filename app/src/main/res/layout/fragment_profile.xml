@@ -32,7 +32,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/Name."
+                android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal|center_vertical"
@@ -42,22 +42,22 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/email_id"
+                android:id="@+id/profile_email_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal|center_vertical"
                 android:fontFamily="casual"
                 android:text="Email"
-                android:textSize="40dp" />
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/phoneno."
+                android:id="@+id/profile_phoneno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal|center_vertical"
                 android:fontFamily="casual"
                 android:text="phone_no"
-                android:textSize="40dp" />
+                android:textSize="30dp" />
 
         </LinearLayout>
     </LinearLayout>

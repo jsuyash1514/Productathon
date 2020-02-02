@@ -23,11 +23,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +84,9 @@ private ArrayList<String> mcropnames=new ArrayList<>();
     private RecyclerView mRecyclerView;
     private List<upload_need> mUploads;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private TextView pname, pemail, pnumber;
+    private FirebaseAuth fauth;
+    private DatabaseReference databaseReference;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +113,25 @@ private ArrayList<String> mcropnames=new ArrayList<>();
         mupload=view.findViewById(R.id.upload_crop_details);
         mchoose=view.findViewById(R.id.choose_crop_details);
         mImageView=view.findViewById(R.id.image_upload_display);
+        pname = view.findViewById(R.id.profile_name);
+        pemail = view.findViewById(R.id.profile_email_id);
+        pnumber = view.findViewById(R.id.profile_phoneno);
+        fauth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference dref = databaseReference.child(fauth.getCurrentUser().getUid()).child("profile");
+        dref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pname.setText(dataSnapshot.child("name").getValue().toString());
+                pemail.setText(dataSnapshot.child("email").getValue().toString());
+                pnumber.setText(dataSnapshot.child("number").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
         mchoose.setOnClickListener(new View.OnClickListener() {
