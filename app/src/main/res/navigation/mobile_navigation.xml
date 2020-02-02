@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
+            app:destination="@id/landingFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -24,8 +24,40 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
+            app:destination="@id/landingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.example.android.gharkikheti.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/answerFragment"
+        android:name="com.example.android.gharkikheti.AnswerFragment"
+        android:label="fragment_answer"
+        tools:layout="@layout/fragment_answer" />
+    <fragment
+        android:id="@+id/askQuestionFragment"
+        android:name="com.example.android.gharkikheti.AskQuestionFragment"
+        android:label="fragment_ask_question"
+        tools:layout="@layout/fragment_ask_question" />
+    <fragment
+        android:id="@+id/rightsAndSchemeFragment"
+        android:name="com.example.android.gharkikheti.RightsAndSchemeFragment"
+        android:label="fragment_rights_and_scheme"
+        tools:layout="@layout/fragment_rights_and_scheme" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.android.gharkikheti.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.example.android.gharkikheti.FeedFragment"
