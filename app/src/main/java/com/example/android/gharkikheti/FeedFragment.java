@@ -1,5 +1,6 @@
 package com.example.android.gharkikheti;
 
+import android.util.Log;
 import android.content.Context;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -20,35 +21,65 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 public class FeedFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private Button logout;
     private NavController navController;
 
-    public FeedFragment() {
-        // Required empty public constructor
-    }
+    private FloatingActionButton floatingActionButton;
+    private NavController navController;
+    private FeedAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_feed, container, false);
+
     }
 
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        logout=view.findViewById(R.id.logout);
-        navController= Navigation.findNavController(getActivity(),R.id.my_nav_host_fragment);
-        firebaseAuth=FirebaseAuth.getInstance();
-        logout.setOnClickListener(new View.OnClickListener() {
+
+        floatingActionButton = view.findViewById(R.id.fab);
+        navController = Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment);
+
+        RecyclerView recyclerView = view.findViewById(R.id.feed_recycler_view);
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        Query query = rootRef.child("feeds");
+
+        Log.i("abc", query.toString());
+        FirebaseRecyclerOptions<Feed> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Feed>()
+                .setQuery(query, Feed.class)
+                .build();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new FeedAdapter(firebaseRecyclerOptions);
+        recyclerView.setAdapter(adapter);
+
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                firebaseAuth.signOut();
-                navController.navigate(R.id.action_landingFragment_to_loginFragment);
+            public void onClick(View v) {
+                navController.navigate(R.id.action_feedFragment_to_newFeedFragment);
             }
         });
-
     }
+
+
 }
