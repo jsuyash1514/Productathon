@@ -1,14 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="#A2FFA7"
 
-</FrameLayout>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="0dp"
+            android:layout_height="232dp"
+            android:layout_weight="1"
+            android:src="@drawable/dp" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Name."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:fontFamily="casual"
+                android:text="NAME"
+                android:textSize="40dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/email_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:fontFamily="casual"
+                android:text="Email"
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/phoneno."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:fontFamily="casual"
+                android:text="phone_no"
+                android:textSize="40dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_crops_view_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#22AD24"></androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button
+        android:id="@+id/choose_crop_details"
+        android:text="Choose photo"
+        android:background="#32CD32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        />
+        <EditText
+            android:id="@+id/Crop_name_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+          android:hint="Crop Name"
+            />
+        <EditText
+            android:id="@+id/start_date_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+           android:hint="DD/MM/YYYY"
+            />
+        <EditText
+            android:id="@+id/end_date_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="DD/MM/YYYY"
+            />
+        <ImageView
+            android:id="@+id/image_upload_display"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/upload_crop_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"
+        android:background="#32CD32"
+        android:text="Upload" />
+
+
+</LinearLayout>
+</ScrollView>

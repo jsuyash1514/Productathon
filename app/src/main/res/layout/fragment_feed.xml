@@ -1,13 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FeedFragment">
-
-    <Button
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Focus is on helping farmers become competitive with liberal agri markets and state support for livestock, fisheries."
+    android:textSize="20dp"/>
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/image1"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/logout"
-        android:text="LOGOUT"/>
-</FrameLayout>
+        android:text="farmers don't just work till the sun goes down, they work till the job gets done"
+        android:textSize="20dp"/>
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/image2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"/>
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/image3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Climate changes are reality. Natural disasters are putting farmers at a continous loss leaving them with no option except suicide!"/>
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/image4"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:src="@drawable/add_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"/>
+
+</LinearLayout>
+
+</ScrollView>
+
