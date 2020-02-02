@@ -1,33 +1,30 @@
 package com.example.android.gharkikheti;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class FeedFragment extends Fragment {
 
-    private RecyclerView feedRecyclerView;
     private FloatingActionButton floatingActionButton;
     private NavController navController;
-
-    public FeedFragment() {
-        // Required empty public constructor
-    }
+    private FeedAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +42,23 @@ public class FeedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<Feed> list = new ArrayList<>();
-
-
         floatingActionButton = view.findViewById(R.id.fab);
         navController = Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment);
+
+        RecyclerView recyclerView = view.findViewById(R.id.feed_recycler_view);
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        Query query = rootRef.child("feeds");
+
+        Log.i("abc", query.toString());
+        FirebaseRecyclerOptions<Feed> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Feed>()
+                .setQuery(query, Feed.class)
+                .build();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new FeedAdapter(firebaseRecyclerOptions);
+        recyclerView.setAdapter(adapter);
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,4 +67,6 @@ public class FeedFragment extends Fragment {
             }
         });
     }
+
+
 }

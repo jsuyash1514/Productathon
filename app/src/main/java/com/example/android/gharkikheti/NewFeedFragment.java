@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,6 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -67,6 +70,7 @@ public class NewFeedFragment extends Fragment {
          progressBar = view.findViewById(R.id.progressBar);
 
          db = FirebaseDatabase.getInstance();
+
          storageReference = FirebaseStorage.getInstance().getReference();
 
          chooseBn.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +103,6 @@ public class NewFeedFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_VIDEO_REQUEST && resultCode != RESULT_CANCELED && data != null && data.getData() != null) {
-            //filePath = data.getData();
             filePath = data.getData();
             videoView.setVideoURI(filePath);
             videoView.start();
@@ -122,13 +125,35 @@ public class NewFeedFragment extends Fragment {
             final StorageReference myRef;
             final String videoID = UUID.randomUUID().toString();
             myRef = storageReference.child("feedVideos/" + videoID);
-            String videoUrl = myRef.getDownloadUrl().toString();
+
+
+
 
             myRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity(), "File Uploaded ", Toast.LENGTH_LONG).show();
+
+                            myRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    dref = db.getReference().child("feeds");
+                                    Map<String, Object> feed = new HashMap<>();
+
+                                    feed.put("video_description", video_description);
+                                    feed.put("videoUrl", uri.toString());
+                                    feed.put("timestamp", System.currentTimeMillis());
+                                    dref.push().setValue(feed);
+                                    Toast.makeText(getActivity(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+
                         }
 
                     });
