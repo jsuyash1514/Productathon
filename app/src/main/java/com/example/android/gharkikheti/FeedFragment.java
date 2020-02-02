@@ -57,21 +57,6 @@ public class FeedFragment extends Fragment {
         floatingActionButton = view.findViewById(R.id.fab);
         navController = Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment);
 
-//        RecyclerView recyclerView = view.findViewById(R.id.feed_recycler_view);
-//
-//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//        Query query = rootRef.child("feeds");
-//
-//        Log.i("abc", query.toString());
-//        FirebaseRecyclerOptions<Feed> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Feed>()
-//                .setQuery(query, Feed.class)
-//                .build();
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        adapter = new FeedAdapter(firebaseRecyclerOptions);
-//        recyclerView.setAdapter(adapter);
-
-
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -66,7 +66,7 @@
         android:id="@+id/profile_crops_view_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#22AD24"></androidx.recyclerview.widget.RecyclerView>
+        android:background="#EBE6BA"></androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

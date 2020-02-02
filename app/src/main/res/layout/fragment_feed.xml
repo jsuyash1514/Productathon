@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".FeedFragment">
 <LinearLayout
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -50,6 +52,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:clickable="false"
         android:src="@drawable/add_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
