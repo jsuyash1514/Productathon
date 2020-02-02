@@ -1,10 +1,25 @@
 package com.example.android.gharkikheti;
 
-import android.os.Bundle;
 import android.util.Log;
+import android.content.Context;
+import android.graphics.Paint;
+import android.net.Uri;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,15 +36,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class FeedFragment extends Fragment {
+    private FirebaseAuth firebaseAuth;
+    private Button logout;
+    private NavController navController;
 
     private FloatingActionButton floatingActionButton;
     private NavController navController;
     private FeedAdapter adapter;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
