@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/question_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -17,7 +18,7 @@
         android:gravity="start"
         android:text="How much a farmer earns per month?"
         android:textAlignment="viewStart"
-        android:textColor="#424242"
+        android:textColor="#636363"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -55,6 +56,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="end"
             android:text="2 days ago"
+            android:fontFamily="monospace"
             android:textColor="#727272"
             android:textSize="14sp" />
 
@@ -63,7 +65,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#636363"/>
+        android:background="#919191"/>
 
 
 </LinearLayout>

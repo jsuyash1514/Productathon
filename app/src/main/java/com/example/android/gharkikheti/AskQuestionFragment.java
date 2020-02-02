@@ -1,6 +1,7 @@
 package com.example.android.gharkikheti;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class AskQuestionFragment extends Fragment {
             public void onChanged(DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null) {
                     final List<QuestionModel> list = new ArrayList<>();
-                    adapter = new QuestionAdapater(list);
+                    adapter = new QuestionAdapater(getContext(), list, getActivity());
                     for (final DataSnapshot readdata : dataSnapshot.getChildren()) {
                         if (readdata != null) {
                             String uid = readdata.child("uid").getValue().toString();
@@ -64,7 +65,10 @@ public class AskQuestionFragment extends Fragment {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     String name = dataSnapshot.getValue().toString();
-                                    list.add(new QuestionModel(readdata.child("question").getValue(String.class), name, readdata.getKey()));
+                                    String timestamp = readdata.getKey();
+                                    Log.d("timecheck", timestamp);
+                                    String req = "" + timestamp.charAt(6) + timestamp.charAt(7) + "/" + timestamp.charAt(4) + timestamp.charAt(5) + "/" + timestamp.charAt(0) + timestamp.charAt(1) + timestamp.charAt(2) + timestamp.charAt(3)+  ", "  + timestamp.charAt(8) + timestamp.charAt(9) + ":" + timestamp.charAt(10) + timestamp.charAt(11);
+                                    list.add(new QuestionModel(readdata.child("question").getValue(String.class), name, req));
                                     adapter.notifyDataSetChanged();
                                 }
 

@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_landingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
     </fragment>
     <fragment
         android:id="@+id/answerFragment"
@@ -44,11 +47,7 @@
         android:id="@+id/askQuestionFragment"
         android:name="com.example.android.gharkikheti.AskQuestionFragment"
         android:label="fragment_ask_question"
-        tools:layout="@layout/fragment_ask_question" >
-        <action
-            android:id="@+id/action_askQuestionFragment_to_answerFragment"
-            app:destination="@id/answerFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_ask_question" />
     <fragment
         android:id="@+id/rightsAndSchemeFragment"
         android:name="com.example.android.gharkikheti.RightsAndSchemeFragment"
